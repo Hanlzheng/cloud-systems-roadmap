@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create labels, milestones and issues from issues.json using the gh CLI.
+"""Create labels, milestones and issues from issues.json via the GitHub REST API (gh api).
 
 Usage:  python3 .github/bootstrap_issues.py OWNER/REPO
 Idempotent: skips labels/milestones/issues whose names already exist.
@@ -10,11 +10,15 @@ import sys
 from pathlib import Path
 
 
-def gh(*args, input_data=None):
-    r = subprocess.run(["gh", *args], capture_output=True, text=True, input=input_data)
+def api(method, path, body=None):
+    args = ["gh", "api", "-X", method, path]
+    if body is not None:
+        args += ["--input", "-"]
+    r = subprocess.run(args, capture_output=True, text=True,
+                       input=json.dumps(body) if body is not None else None)
     if r.returncode != 0:
-        raise RuntimeError(f"gh {' '.join(args)}\n{r.stderr}")
-    return r.stdout
+        raise RuntimeError(f"{method} {path}\n{r.stderr}")
+    return json.loads(r.stdout) if r.stdout.strip() else None
 
 
 def main():
@@ -24,37 +28,33 @@ def main():
     data = json.loads((Path(__file__).parent / "issues.json").read_text())
 
     # labels
-    existing = {l["name"] for l in json.loads(gh("label", "list", "-R", repo, "--json", "name", "-L", "200"))}
+    existing = {l["name"] for l in api("GET", f"repos/{repo}/labels?per_page=100")}
     for l in data["labels"]:
         if l["name"] in existing:
             continue
-        gh("label", "create", l["name"], "-R", repo, "-c", l["color"], "-d", l["description"])
+        api("POST", f"repos/{repo}/labels", l)
         print("label  +", l["name"])
 
-    # milestones (gh has no milestone subcommand; use the API)
-    ms = json.loads(gh("api", f"repos/{repo}/milestones?state=all&per_page=100"))
+    # milestones
+    ms = api("GET", f"repos/{repo}/milestones?state=all&per_page=100")
     ms_by_title = {m["title"]: m["number"] for m in ms}
     for m in data["milestones"]:
         if m["title"] in ms_by_title:
             continue
-        out = json.loads(gh("api", f"repos/{repo}/milestones", "-f", f"title={m['title']}",
-                            "-f", f"description={m['description']}"))
+        out = api("POST", f"repos/{repo}/milestones", m)
         ms_by_title[m["title"]] = out["number"]
         print("mstone +", m["title"])
 
     # issues
-    existing_titles = {i["title"] for i in json.loads(
-        gh("issue", "list", "-R", repo, "--state", "all", "--json", "title", "-L", "500"))}
+    existing_titles = {i["title"] for i in api("GET", f"repos/{repo}/issues?state=all&per_page=100")}
     for i in data["issues"]:
         if i["title"] in existing_titles:
             continue
-        args = ["issue", "create", "-R", repo, "-t", i["title"], "-F", "-"]
-        for lab in i["labels"]:
-            args += ["-l", lab]
+        body = {"title": i["title"], "body": i["body"], "labels": i["labels"]}
         if i.get("milestone"):
-            args += ["-m", i["milestone"]]
-        url = gh(*args, input_data=i["body"]).strip()
-        print("issue  +", i["title"], "->", url)
+            body["milestone"] = ms_by_title[i["milestone"]]
+        out = api("POST", f"repos/{repo}/issues", body)
+        print("issue  +", i["title"], "->", out["html_url"])
 
 
 if __name__ == "__main__":
