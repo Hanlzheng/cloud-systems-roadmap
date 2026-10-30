@@ -1,49 +1,50 @@
 # Cloud & Systems Roadmap
 
-一个用来探索"云计算 / 系统方向"的学习仓库。目标不是学完所有东西，而是通过**动手搭一遍、再一层层拆开看**，找到自己真正感兴趣的具体子方向。
+A learning repo for exploring the cloud / systems side of computer science. The goal is not to learn everything, but to **build the pipeline once by hand, then take it apart layer by layer** and find out which specific sub-area actually holds my interest.
 
-进度用 Issues 跟踪：每个 Issue 是一个任务，带清单和过关自测；Milestone 对应阶段。
+Progress is tracked with Issues: each Issue is one task with a checklist and a self-test; Milestones correspond to phases.
 
-## 阶段总览
+## Phases at a glance
 
-| 阶段 | 内容 | 预计时间 | 产出 |
+| Phase | What | Time | Output |
 |---|---|---|---|
-| Phase 1 | 补基础：Linux / 网络 / OS / Docker | 3–4 周 | 一台自己配好的云虚拟机 + 过关自测全部通过 |
-| Phase 2 | 从零部署一个带数据库的 Web 应用 | 2–3 周 | 可公网访问、HTTPS、CI/CD 自动部署、有监控 |
-| Phase 3 | 升级成小集群，制造故障 | 3–4 周 | k8s 上跑 3 副本、主从数据库、压测报告 |
-| Phase 4 | 选一个方向往深走 | 持续 | 一门系统课的 lab + 几篇论文笔记 |
+| Phase 1 | Fundamentals: Linux / networking / OS / Docker | 3–4 weeks | A cloud VM I configured myself + all self-tests passed |
+| Phase 2 | Deploy a web app with a database from scratch | 2–3 weeks | Public HTTPS site, CI/CD auto-deploy, basic monitoring |
+| Phase 3 | Scale to a small cluster, break things on purpose | 3–4 weeks | 3 replicas on k8s, primary/replica DB, a load-test report |
+| Phase 4 | Pick a direction and go deep | ongoing | Core labs of one systems course + paper notes |
 
-每周投入 8–10 小时，整体 2–3 个月。
+Roughly 8–10 hours a week, 2–3 months total.
 
-## 为什么这样安排
+## Why it's structured this way
 
-"云计算"不是一个单一方向，而是一条流水线上每一环各有各的研究领域（调度、虚拟化、存储、网络、安全、可观测性……）。先把流水线亲手走一遍，哪一环让你停下来不想走了，那就是你的方向。
+"Cloud computing" is not a single research direction. It is a pipeline where every stage belongs to a different field (scheduling, virtualization, storage, networking, security, observability, …). Walk the pipeline yourself first; whichever layer makes you stop and want to dig in is your direction.
 
-Phase 2 结束就能有初步判断，Phase 3 是确认，Phase 4 才开始真正"学方向"。
+Phase 2 gives a first signal. Phase 3 confirms it. Phase 4 is where the actual "studying a direction" begins.
 
-## 仓库结构
+## Repo layout
 
 ```
 .
-├── README.md              # 本文件
+├── README.md              # this file
 ├── docs/
-│   ├── phase-1.md         # 基础阶段详细清单
-│   ├── phase-2.md         # 单机部署项目
-│   ├── phase-3.md         # 集群与故障实验
-│   ├── phase-4.md         # 方向选择表
-│   └── reading-list.md    # 论文与博客阅读清单
-├── notes/                 # 学习笔记和"为什么"记录（按日期或主题）
-│   └── questions.md       # 遇到的所有"为什么"，这是你的兴趣地图
-└── projects/              # Phase 2/3 的实际代码
+│   ├── phase-1.md         # fundamentals checklist
+│   ├── phase-2.md         # single-machine deployment project
+│   ├── phase-3.md         # cluster & failure experiments
+│   ├── phase-4.md         # choosing a direction
+│   └── reading-list.md    # papers and blogs
+├── notes/                 # study notes and the "why?" log
+│   ├── questions.md       # every "why?" I run into — this is the interest map
+│   └── papers/            # one page per paper
+└── projects/              # code for Phase 2/3
 ```
 
-## 贯穿全程的习惯
+## Habits that run through every phase
 
-- **读一手资料**：AWS Architecture Blog、Google SRE Book、Cloudflare Blog
-- **每周一篇经典论文**：从 MapReduce、GFS 开始，见 `docs/reading-list.md`
-- **记录"为什么"**：每个不理解的现象都写进 `notes/questions.md`，几个月后回看会非常清楚自己对什么感兴趣
-- **带着东西去找人聊**：Phase 2 做完就可以拿着项目和问题列表去找系统方向的教授或工程师
+- **Read primary sources**: AWS Architecture Blog, Google SRE Book, Cloudflare Blog
+- **One classic paper a week**: start with MapReduce and GFS, see `docs/reading-list.md`
+- **Log every "why?"**: anything you don't understand goes into `notes/questions.md`; in a few months it will be obvious what you care about
+- **Bring something to show**: once Phase 2 is done, take the project and the questions list to a systems professor or engineer and talk
 
-## 当前进度
+## Progress
 
-看 [Issues](../../issues) 和 [Milestones](../../milestones)。
+See [Issues](../../issues) and [Milestones](../../milestones).

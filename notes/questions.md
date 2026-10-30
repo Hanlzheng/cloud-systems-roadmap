@@ -1,11 +1,11 @@
-# 为什么清单
+# The "why?" log
 
-每次遇到不理解的现象，记一条。格式随意，但至少写：日期、现象、当时的猜测。
-几个月后回看，哪类问题最多、哪类你最想追下去，那就是你的方向。
+Every time something doesn't make sense, add a line. Format is loose, but at least: date, what happened, your guess at the time.
+In a few months, look back: whichever kind of question shows up most — and which ones you most want to chase — that's your direction.
 
-## 示例
+## Example
 
-- 2026-11-xx | 容器 `docker rm` 之后数据库数据全没了 | 猜测：容器文件系统是临时的？volume 是干这个的？→ 已解决，见 notes/docker-volumes.md
+- 2026-11-xx | After `docker rm` all the database data was gone | Guess: container filesystem is ephemeral? Is that what volumes are for? → resolved, see notes/docker-volumes.md
 
 ---
 

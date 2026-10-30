@@ -1,29 +1,29 @@
-# Phase 3：升级成小集群，制造故障（3–4 周）
+# Phase 3: Scale to a small cluster and break things (3–4 weeks)
 
-单机部署升级为集群，真正的分布式问题才开始出现。这一阶段结束，你应该能判断：**你是对"让系统稳定跑起来"上瘾，还是觉得这些就是繁琐的配置活。** 两种结论都有价值。
+Upgrading from one machine to a cluster is where the real distributed-systems problems show up. By the end you should be able to answer: **am I hooked on "keeping the system up", or does this feel like tedious configuration?** Either answer is useful.
 
-代码放在 `projects/phase-3/`。
+Code lives in `projects/phase-3/`.
 
-## 步骤
+## Steps
 
-1. **搭集群**：本地用 kind 或 k3s 起一个 Kubernetes 集群（也可以用云厂商的托管 k8s 免费额度）
-2. **部署应用**：把 Phase 2 的应用部署上去，跑 3 个副本，配 Service 和 Ingress
-3. **杀副本**：`kubectl delete pod` 杀掉一个，观察流量怎么被转移、新 pod 多久起来
-4. **数据库主从**：PostgreSQL 配主从复制，然后把主库杀掉，看会发生什么（通常是一地鸡毛，这很正常）
-5. **压测**：用 k6 或 locust 压测，找瓶颈，试着调优（副本数、资源限制、连接池、缓存）
-6. **可观测性升级**：Prometheus 抓集群指标，看 pod 重启、CPU/内存、请求延迟分布
+1. **Cluster**: local Kubernetes with kind or k3s (or a cloud provider's managed k8s free tier)
+2. **Deploy**: run the Phase 2 app with 3 replicas, with a Service and an Ingress
+3. **Kill a replica**: `kubectl delete pod` one of them; watch traffic shift and how long recovery takes
+4. **Database replication**: PostgreSQL primary + replica; then kill the primary and see what happens (usually a mess — that's expected)
+5. **Load test**: k6 or locust; find the bottleneck; try to tune it (replica count, resource limits, connection pool, cache)
+6. **Observability**: Prometheus scraping cluster metrics — pod restarts, CPU/memory, latency distribution
 
-## 这一阶段的"为什么"
+## This phase's "why?"s
 
-- 副本之间怎么保持一致 → 分布式一致性
-- 主库挂了谁来当新主库 → 选主、共识
-- 为什么 pod 被调度到这台机器而不是那台 → 调度器
-- 为什么限制了内存反而更慢 → 资源管理
-- 压测时瓶颈在哪一层 → 性能分析
+- How do replicas stay consistent → distributed consistency
+- Who becomes the new primary when the old one dies → leader election, consensus
+- Why did the scheduler put this pod on that node → the scheduler
+- Why did a memory limit make things slower → resource management
+- Which layer is the bottleneck under load → performance analysis
 
-## 完成标准
+## Done when
 
-- [ ] 3 副本运行，杀掉任意一个服务不中断
-- [ ] 数据库主从切换做过一次（哪怕是手动的）
-- [ ] 一份压测报告：QPS、P50/P99 延迟、瓶颈在哪、做了什么优化
-- [ ] 能回答"如果流量涨 10 倍，哪里先挂"
+- [ ] 3 replicas running; killing any one doesn't interrupt service
+- [ ] Performed a primary → replica failover at least once (manual is fine)
+- [ ] A load-test report: QPS, p50/p99 latency, where the bottleneck was, what you changed
+- [ ] Can answer "if traffic goes up 10×, what breaks first?"
