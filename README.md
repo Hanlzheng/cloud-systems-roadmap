@@ -31,10 +31,12 @@ Phase 2 gives a first signal. Phase 3 confirms it. Phase 4 is where the actual "
 │   ├── phase-2.md         # single-machine deployment project
 │   ├── phase-3.md         # cluster & failure experiments
 │   ├── phase-4.md         # choosing a direction
-│   └── reading-list.md    # papers and blogs
+│   ├── reading-list.md    # papers and blogs
+│   └── interview-prep.md  # LeetCode strategy and system design, runs alongside every phase
 ├── notes/                 # study notes and the "why?" log
 │   ├── questions.md       # every "why?" I run into — this is the interest map
-│   └── papers/            # one page per paper
+│   ├── papers/            # one page per paper
+│   └── interview/         # notes on problems I got wrong
 └── projects/              # code for Phase 2/3
 ```
 
@@ -42,6 +44,7 @@ Phase 2 gives a first signal. Phase 3 confirms it. Phase 4 is where the actual "
 
 - **Read primary sources**: AWS Architecture Blog, Google SRE Book, Cloudflare Blog
 - **One classic paper a week**: start with MapReduce and GFS, see `docs/reading-list.md`
+- **3–4 LeetCode problems a week, by pattern**: enough to pass the filter, no more; see `docs/interview-prep.md`
 - **Log every "why?"**: anything you don't understand goes into `notes/questions.md`; in a few months it will be obvious what you care about
 - **Bring something to show**: once Phase 2 is done, take the project and the questions list to a systems professor or engineer and talk
 

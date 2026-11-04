@@ -1,114 +1,196 @@
 {
   "labels": [
-    {"name": "phase-1", "color": "0E8A16", "description": "Fundamentals"},
-    {"name": "phase-2", "color": "1D76DB", "description": "Single-machine deployment"},
-    {"name": "phase-3", "color": "5319E7", "description": "Cluster & failures"},
-    {"name": "phase-4", "color": "B60205", "description": "Choose a direction"},
-    {"name": "reading", "color": "FBCA04", "description": "Papers / blogs"},
-    {"name": "setup", "color": "C5DEF5", "description": "Environment & tooling"}
+    {
+      "name": "phase-1",
+      "color": "0E8A16",
+      "description": "Fundamentals"
+    },
+    {
+      "name": "phase-2",
+      "color": "1D76DB",
+      "description": "Single-machine deployment"
+    },
+    {
+      "name": "phase-3",
+      "color": "5319E7",
+      "description": "Cluster & failures"
+    },
+    {
+      "name": "phase-4",
+      "color": "B60205",
+      "description": "Choose a direction"
+    },
+    {
+      "name": "reading",
+      "color": "FBCA04",
+      "description": "Papers / blogs"
+    },
+    {
+      "name": "setup",
+      "color": "C5DEF5",
+      "description": "Environment & tooling"
+    },
+    {
+      "name": "interview",
+      "color": "D93F0B",
+      "description": "LeetCode / system design prep"
+    }
   ],
   "milestones": [
-    {"title": "Phase 1: Fundamentals", "description": "Linux / networking / OS / Docker, 3–4 weeks"},
-    {"title": "Phase 2: Single-machine deployment", "description": "Deploy a web app with a database from scratch, 2–3 weeks"},
-    {"title": "Phase 3: Cluster & failures", "description": "Small k8s cluster, DB replication, load testing, 3–4 weeks"},
-    {"title": "Phase 4: Choose a direction", "description": "Pick a direction, do course labs, read papers"}
+    {
+      "title": "Phase 1: Fundamentals",
+      "description": "Linux / networking / OS / Docker, 3–4 weeks"
+    },
+    {
+      "title": "Phase 2: Single-machine deployment",
+      "description": "Deploy a web app with a database from scratch, 2–3 weeks"
+    },
+    {
+      "title": "Phase 3: Cluster & failures",
+      "description": "Small k8s cluster, DB replication, load testing, 3–4 weeks"
+    },
+    {
+      "title": "Phase 4: Choose a direction",
+      "description": "Pick a direction, do course labs, read papers"
+    }
   ],
   "issues": [
     {
       "title": "[P1-0] Spin up a cloud VM as the practice environment",
-      "labels": ["phase-1", "setup"],
+      "labels": [
+        "phase-1",
+        "setup"
+      ],
       "milestone": "Phase 1: Fundamentals",
       "body": "Do this on day one. Every Phase 1 exercise happens on this machine, so you get used to the cloud console along the way.\n\n## Tasks\n- [ ] Sign up for AWS or GCP; launch a free-tier Ubuntu 22.04/24.04 VM (smallest size is fine)\n- [ ] Generate an ssh key pair and log in with it (disable password login)\n- [ ] Security group: open only port 22; open others as needed later\n- [ ] Set a billing alert so the free tier running out doesn't cost you\n- [ ] Create a non-root daily user with sudo\n\n## Log\nWrite in `notes/`: what a security group is, why the box wasn't reachable at first, what the public vs private IP are."
     },
     {
       "title": "[P1-1] Linux command line",
-      "labels": ["phase-1"],
+      "labels": [
+        "phase-1"
+      ],
       "milestone": "Phase 1: Fundamentals",
       "body": "About 1 week, an hour a day. Full checklist in `docs/phase-1.md` §1.\n\n## What to know\n- [ ] File ops `ls cd cp mv rm mkdir find cat less head tail`\n- [ ] Permissions `chmod chown sudo`, rwx / 755\n- [ ] Processes `ps top htop kill`, PIDs, signals, background jobs\n- [ ] Text `grep sed awk`, pipes, redirection `> >> 2>&1`\n- [ ] Network tools `ssh scp curl wget ping ss dig`\n- [ ] `systemctl` / `journalctl` / `/var/log`\n- [ ] Env vars, `PATH`, `.bashrc`, symlinks\n- [ ] `apt`\n- [ ] A shell script under 20 lines with a loop and a conditional\n\n## Resources\n- MIT Missing Semester, first few lectures\n- linuxjourney.com\n- OverTheWire Bandit\n\n## Self-test (close this issue only when all pass)\n- [ ] Without looking anything up, ssh into a remote box, find the top-CPU process and kill it\n- [ ] From a huge log, extract lines containing \"error\" and count them per hour\n- [ ] Script: walk a directory, compress every .log older than 7 days"
     },
     {
       "title": "[P1-2] Networking basics",
-      "labels": ["phase-1"],
+      "labels": [
+        "phase-1"
+      ],
       "milestone": "Phase 1: Fundamentals",
       "body": "About 1 week. Goal: be able to picture everything from \"type a URL\" to \"page renders\". Full checklist in `docs/phase-1.md` §2.\n\n## What to know\n- [ ] Layering\n- [ ] DNS: A / CNAME, why changes take time\n- [ ] IPs and ports, public vs private, 80 and 443\n- [ ] TCP vs UDP, three-way handshake\n- [ ] HTTP/HTTPS: methods, status codes, headers, cookies, certificate chain\n- [ ] NAT, firewalls, security groups\n- [ ] Load balancers and reverse proxies\n- [ ] `ping traceroute dig curl -v telnet`\n\n## Resources\n- Kurose & Ross ch. 1–2 (skim), Julia Evans' networking zines\n- Hands-on: `curl -v` a site and understand every line; `dig` a domain\n\n## Self-test\n- [ ] Explain in your own words everything from typing github.com to the page appearing\n- [ ] A service on the VM isn't reachable — list at least 4 causes and how to rule each out\n- [ ] 502 vs 504: know which layer broke"
     },
     {
       "title": "[P1-3] Operating systems basics",
-      "labels": ["phase-1"],
+      "labels": [
+        "phase-1"
+      ],
       "milestone": "Phase 1: Fundamentals",
       "body": "About 1 week. If you've taken an OS course, skip straight to the self-test. Full checklist in `docs/phase-1.md` §3.\n\n## What to know\n- [ ] Processes vs threads\n- [ ] Virtual memory, OOM\n- [ ] CPU scheduling, time slices\n- [ ] File descriptors, inodes\n- [ ] System calls, user vs kernel mode\n- [ ] Locks, deadlock, race conditions\n- [ ] `/proc`, `ulimit`\n- [ ] **cgroups and namespaces** (the basis of containers — must understand)\n\n## Resources\n- OSTEP: Virtualization part + first few Concurrency chapters (~150 pages)\n- `strace` a program; `cat /proc/<pid>/status`\n\n## Self-test\n- [ ] Explain why a program can use 8 GB on a 4 GB machine\n- [ ] One sentence: the real difference between a container and a VM\n- [ ] Seeing OOM killed, know what happened and where the logs are"
     },
     {
       "title": "[P1-4] Docker",
-      "labels": ["phase-1"],
+      "labels": [
+        "phase-1"
+      ],
       "milestone": "Phase 1: Fundamentals",
       "body": "3–5 days. Last on purpose — it's the other three applied. Full checklist in `docs/phase-1.md` §4.\n\n## What to know\n- [ ] Image vs container\n- [ ] Dockerfile: `FROM RUN COPY WORKDIR EXPOSE CMD`, layers and caching\n- [ ] `build run ps logs exec stop rm`, `-p -v -e`\n- [ ] Docker Compose\n- [ ] What a volume is and why data vanishes without one\n- [ ] Docker Hub push / pull\n\n## Resources\n- Docker's Get Started guide\n- Containerize any small project you've written\n\n## Self-test\n- [ ] Dockerfile for a project with a reasonable image size\n- [ ] Compose: web app + PostgreSQL, app connects, data survives restart\n- [ ] A container won't start — debug with `docker logs` / `docker exec`"
     },
     {
       "title": "[P2-1] Write a minimal CRUD app and containerize it",
-      "labels": ["phase-2"],
+      "labels": [
+        "phase-2"
+      ],
       "milestone": "Phase 2: Single-machine deployment",
       "body": "Code in `projects/phase-2/`.\n\n- [ ] Any language (Flask / Express / Go): a CRUD app backed by PostgreSQL\n- [ ] Dockerfile and docker-compose.yml\n- [ ] `docker compose up` works locally\n- [ ] Add a `/health` endpoint — monitoring and k8s will both need it"
     },
     {
       "title": "[P2-2] Deploy by hand to the cloud VM with a domain and HTTPS",
-      "labels": ["phase-2"],
+      "labels": [
+        "phase-2"
+      ],
       "milestone": "Phase 2: Single-machine deployment",
       "body": "- [ ] Install Docker on the Phase 1 VM (or a fresh one) and run the app\n- [ ] Security group: open 80 / 443\n- [ ] Get a domain, add an A record pointing at the server\n- [ ] HTTPS with Caddy (easiest) or Nginx + certbot\n- [ ] https://your-domain loads in a browser\n\n## Log\nHow is the certificate issued? How does Let's Encrypt verify you own the domain? What happens when it expires? Write it in `notes/questions.md`."
     },
     {
       "title": "[P2-3] Auto-deploy with GitHub Actions",
-      "labels": ["phase-2"],
+      "labels": [
+        "phase-2"
+      ],
       "milestone": "Phase 2: Single-machine deployment",
       "body": "- [ ] Workflow: push to main → build image → push to a registry (GHCR is free)\n- [ ] Server pulls the new image and restarts (ssh script, or watchtower)\n- [ ] Secrets (ssh key, registry token) go in GitHub Secrets, never in code\n- [ ] Push a deliberately broken version; see what happens; think about rollback\n\n## Log\nWhy does Actions sometimes queue? Where do runners come from? How are secrets injected into the build without leaking?"
     },
     {
       "title": "[P2-4] Add monitoring: Prometheus + Grafana + logs",
-      "labels": ["phase-2"],
+      "labels": [
+        "phase-2"
+      ],
       "milestone": "Phase 2: Single-machine deployment",
       "body": "- [ ] App exposes `/metrics` (request count, latency histogram)\n- [ ] Prometheus scrapes it; Grafana dashboard: QPS, p50/p99 latency, error rate\n- [ ] Central logs: Grafana Cloud free tier or local Loki\n- [ ] One alert: service down / error rate over threshold → notify you\n\n## Log\nOne machine's logs are findable. What about a thousand? That's the observability field."
     },
     {
       "title": "[P2-5] Phase 2 retro: organize the \"why?\" log",
-      "labels": ["phase-2"],
+      "labels": [
+        "phase-2"
+      ],
       "milestone": "Phase 2: Single-machine deployment",
       "body": "Phase 2 done when:\n- [ ] Public domain over HTTPS\n- [ ] Push to main is live within 5 minutes\n- [ ] Grafana shows request rate and latency\n- [ ] At least 10 entries in `notes/questions.md`\n\nRetro:\n- [ ] Group the questions by layer (storage / scheduling / network / security / observability)\n- [ ] Which group do you most want to chase? Write a paragraph\n- [ ] If in school: you now have something to show — go talk to a systems professor"
     },
     {
       "title": "[P3-1] Stand up a Kubernetes cluster and run 3 replicas",
-      "labels": ["phase-3"],
+      "labels": [
+        "phase-3"
+      ],
       "milestone": "Phase 3: Cluster & failures",
       "body": "Code in `projects/phase-3/`.\n\n- [ ] Local cluster with kind or k3s (or a managed k8s free tier)\n- [ ] Deployment / Service / Ingress; Phase 2 app with 3 replicas\n- [ ] Liveness / readiness probes using `/health`\n- [ ] Resource requests / limits\n- [ ] `kubectl delete pod` one replica; watch traffic shift and recovery time\n\n## Log\nWhy did the scheduler put the pod on that node? What happens when limits are too low?"
     },
     {
       "title": "[P3-2] PostgreSQL primary/replica, then kill the primary",
-      "labels": ["phase-3"],
+      "labels": [
+        "phase-3"
+      ],
       "milestone": "Phase 3: Cluster & failures",
       "body": "- [ ] Set up PostgreSQL streaming replication: one primary, one replica\n- [ ] Verify writes to the primary show up on the replica\n- [ ] Kill the primary. What happens to the app? Does the replica promote itself? (Probably not)\n- [ ] Manually promote the replica and point the app at it\n- [ ] Read how Patroni does automatic failover\n\n## Log\nThis is the \"who becomes the new primary\" leader-election problem. Why can't both be primary? Come back to this when you read the Raft paper."
     },
     {
       "title": "[P3-3] Load test, find the bottleneck, tune",
-      "labels": ["phase-3"],
+      "labels": [
+        "phase-3"
+      ],
       "milestone": "Phase 3: Cluster & failures",
       "body": "- [ ] k6 or locust; ramp up until errors or latency spike\n- [ ] Check Grafana: is the bottleneck app CPU? DB connections? Network?\n- [ ] Try at least two optimizations (more replicas / connection pool / cache / adjust limits) and compare before/after\n- [ ] Write a load-test report: QPS, p50/p99, bottleneck, changes, conclusion\n\n## Self-test\nIf traffic goes up 10×, what breaks first?"
     },
     {
       "title": "[P3-4] Phase 3 retro: are you hooked on keeping systems up?",
-      "labels": ["phase-3"],
+      "labels": [
+        "phase-3"
+      ],
       "milestone": "Phase 3: Cluster & failures",
       "body": "Phase 3 done when:\n- [ ] 3 replicas; killing any one doesn't interrupt service\n- [ ] Did a primary → replica failover at least once\n- [ ] A load-test report exists\n\nHonest answers:\n- [ ] Which moments this month were exciting? Which were \"just get the config done\"?\n- [ ] Are you hooked on making the system stable, or does it feel like tedious configuration?\n- [ ] Both answers are useful. Write them in `notes/phase-3-retro.md`, then go to `docs/phase-4.md` and pick a direction"
     },
     {
       "title": "[P4] Pick a direction and do the core labs of one systems course",
-      "labels": ["phase-4"],
+      "labels": [
+        "phase-4"
+      ],
       "milestone": "Phase 4: Choose a direction",
       "body": "Use the table in `docs/phase-4.md`.\n\n- [ ] Write `notes/why-this-direction.md`: why this one, which moments in Phases 2–3 pointed at it\n- [ ] Pick the matching course (6.824 / 15-445 / CS162 / CS144) and do its core labs\n- [ ] Read 5 papers in the direction, one page of notes each in `notes/papers/`\n- [ ] If in school: take the Phase 2/3 work to a professor in that area and talk\n- [ ] Open new issues to track lab progress"
     },
     {
       "title": "[Reading] One classic paper a week",
-      "labels": ["reading"],
+      "labels": [
+        "reading"
+      ],
       "milestone": "Phase 1: Fundamentals",
       "body": "Starting in Phase 1, one paper a week; list in `docs/reading-list.md`. For each, write a page in `notes/papers/`: the problem, the core idea, what you didn't get.\n\n## Starter\n- [ ] MapReduce (OSDI 2004)\n- [ ] GFS (SOSP 2003)\n- [ ] Dynamo (SOSP 2007)\n- [ ] Raft (ATC 2014)\n\n## Intermediate\n- [ ] Borg (EuroSys 2015)\n- [ ] Spanner (OSDI 2012)\n- [ ] Firecracker (NSDI 2020)\n- [ ] Dapper (2010)\n\nThis issue spans all phases and stays open."
+    },
+    {
+      "title": "[Interview] LeetCode by pattern + system design",
+      "labels": [
+        "interview"
+      ],
+      "milestone": "Phase 1: Fundamentals",
+      "body": "Runs alongside every phase. Strategy and rationale in `docs/interview-prep.md`. Get stable on mediums, then spend the time on system design and projects.\n\n## Pace\n- Phases 1–2: 3–4 problems/week, NeetCode 150 or Grind 75, by pattern\n- Phase 3: 2/week + start DDIA and system design\n- 1–2 months before applying: redo everything missed, mock interviews\n\n## Patterns (check off when you can do a new medium in the pattern without hints)\n- [ ] Arrays & hashing\n- [ ] Two pointers\n- [ ] Sliding window\n- [ ] Stack\n- [ ] Binary search\n- [ ] Linked list\n- [ ] Trees (BFS/DFS, BST)\n- [ ] Heap / priority queue (top-K, merge K sorted)\n- [ ] Intervals\n- [ ] Graphs (BFS/DFS, topological sort, union-find)\n- [ ] Trie\n- [ ] Backtracking\n- [ ] 1-D DP (medium level only)\n- [ ] Greedy\n- [ ] Bit manipulation (light)\n\n## Infra-specific extras\n- [ ] LRU Cache (#146) and LFU Cache (#460)\n- [ ] LeetCode Concurrency set: Print in Order, FooBar, Dining Philosophers, H2O\n- [ ] Design Hit Counter, Design Rate Limiter, Time-Based KV Store (#981), Design Log Storage, In-Memory File System\n- [ ] Top K Frequent Elements (#347), Merge K Sorted Lists (#23), Meeting Rooms II (#253)\n\n## System design (from Phase 3)\n- [ ] DDIA chapters 1–6\n- [ ] DDIA chapters 7–12\n- [ ] Design: URL shortener\n- [ ] Design: rate limiter\n- [ ] Design: message queue\n- [ ] Design: distributed cache\n- [ ] Design: log aggregation pipeline\n- [ ] Design: object storage (S3-like)\n\n## Log\nKeep a short note per problem you got wrong in `notes/interview/` — what the pattern was and what you missed. Review that file before any interview."
     }
   ]
 }
